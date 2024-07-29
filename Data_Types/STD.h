@@ -10,6 +10,7 @@
 #ifndef _STD_H_
 #define _STD_H_
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef unsigned char uint8;
 typedef char sint8;

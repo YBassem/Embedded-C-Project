@@ -33,7 +33,7 @@ Bool SDB_IsFull(void);
 uint8 SDB_GetUsedSize(void);
 Bool SDB_AddEntry(void);
 Bool SDB_IsIdExist(uint32 id, uint8 *idx);
-void SDB_DeletEntry(uint32 id);
+void SDB_DeleteEntry(uint32 id);
 Bool SDB_ReadEntry(uint32 id);
 void SDB_GetList(uint8 *count, uint32 *list);
 

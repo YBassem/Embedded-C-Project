@@ -14,8 +14,10 @@ uint8 itemCount = 0;
 
 Bool SDB_IsFull (void){
     if(itemCount == MAX_STUDENTS){
+        printf("Failed to add student! Database is full\n");
         return True;
     }
+    printf("Database is not full, there are %d empty positions\n",MAX_STUDENTS - itemCount);
     return False;
 }
 
@@ -65,10 +67,11 @@ Bool SDB_IsIdExist (uint32 id,uint8* idx){
             return True;
         }
     }
+    printf("ID not found! Try again\n");
     return False;
 }
 
-void SDB_DeletEntry (uint32 id){
+void SDB_DeleteEntry (uint32 id){
     uint8 i = 0;
     if(SDB_IsIdExist(id,&i)){
             Student_DB[i].Student_ID = Student_DB[itemCount - 1].Student_ID;
