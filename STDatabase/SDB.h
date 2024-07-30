@@ -27,7 +27,6 @@ typedef struct
 } student;
 
 student Student_DB[MAX_STUDENTS];
-uint32 IDs[MAX_STUDENTS];
 
 Bool SDB_IsFull(void);
 uint8 SDB_GetUsedSize(void);
