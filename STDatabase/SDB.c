@@ -17,7 +17,7 @@ Bool SDB_IsFull (void){
         printf("Failed to add student! Database is full\n");
         return True;
     }
-    printf("Database is not full, there are %d empty positions\n",MAX_STUDENTS - itemCount);
+    
     return False;
 }
 
@@ -29,10 +29,15 @@ Bool SDB_AddEntry(void){
     if(SDB_IsFull()){
         return False;
     }
-
+    uint8 x = 0;
     printf("Enter Student ID: ");
-    scanf("%d",&Student_DB[itemCount].Course1_ID);
-    IDs[itemCount] = Student_DB[itemCount].Course1_ID;
+    scanf("%d",&Student_DB[itemCount].Student_ID);
+    if(SDB_IsIdExist(Student_DB[itemCount].Student_ID,&x)){
+        printf("Student with ID: %d already exist at Student %d\n",Student_DB[itemCount].Student_ID,x+1);
+        Student_DB[itemCount].Student_ID = 0;
+        return False;
+    }
+    IDs[itemCount] = Student_DB[itemCount].Student_ID;
 
     printf("Enter Student Year: ");
     scanf("%d",&Student_DB[itemCount].Student_year);
@@ -67,7 +72,6 @@ Bool SDB_IsIdExist (uint32 id,uint8* idx){
             return True;
         }
     }
-    printf("ID not found! Try again\n");
     return False;
 }
 
@@ -100,9 +104,7 @@ void SDB_DeleteEntry (uint32 id){
             Student_DB[i].Course3_grade = Student_DB[itemCount - 1].Course3_grade;
             Student_DB[itemCount - 1].Course3_grade = 0;
             itemCount--;
-            
-        }else{
-             printf("Student ID not found!, Please enter a valid ID\n");
+            printf("Student Deleted successfuly\n");
         }
 }
 
@@ -114,14 +116,14 @@ Bool SDB_ReadEntry (uint32 id){
     Bool found = SDB_IsIdExist(id,&i);
 
     if(found){
-        printf("Enter Student ID: %d\n",Student_DB[i].Student_ID);
-        printf("Enter Student Year: %d\n",Student_DB[i].Student_year);
-        printf("Enter Course 1 ID: %d\n",Student_DB[i].Course1_ID);
-        printf("Enter Course 1 Grade: %d\n",Student_DB[i].Course1_grade);
-        printf("Enter Course 2 ID: %d\n",Student_DB[i].Course2_ID);
-        printf("Enter Course 2 Grade: %d\n",Student_DB[i].Course2_grade);
-        printf("Enter Course 3 ID: %d\n",Student_DB[i].Course3_ID);
-        printf("Enter Course 3 Grade: %d\n",Student_DB[i].Course3_grade);
+        printf("Student ID: %d\n",Student_DB[i].Student_ID);
+        printf("Student Year: %d\n",Student_DB[i].Student_year);
+        printf("Course 1 ID: %d\n",Student_DB[i].Course1_ID);
+        printf("Course 1 Grade: %d\n",Student_DB[i].Course1_grade);
+        printf("Course 2 ID: %d\n",Student_DB[i].Course2_ID);
+        printf("Course 2 Grade: %d\n",Student_DB[i].Course2_grade);
+        printf("Course 3 ID: %d\n",Student_DB[i].Course3_ID);
+        printf("Course 3 Grade: %d\n",Student_DB[i].Course3_grade);
     }
     
 
@@ -130,9 +132,11 @@ Bool SDB_ReadEntry (uint32 id){
 }
 
 void SDB_GetList (uint8 * count, uint32 * list){
-    *count = itemCount;
-
-    for(int i = 0 ; i<itemCount;i++){
+    if(*count > itemCount){
+        printf("Number exceeds the total number of students\nAvailable students are:\n");
+        *count = itemCount;
+    }
+    for(int i = 0 ; i < *count;i++){
         list[i] =  IDs[i];
     }
 }

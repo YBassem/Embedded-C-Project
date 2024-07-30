@@ -10,8 +10,8 @@
 #ifndef _SDBAPP_H_
 #define _SDBAPP_H_
 
-#include "STDatabase/SDB.h"
-
+#include "../STDatabase/SDB.h"
+#include "../Data_Types/STD.h"
 typedef enum
 {
     EXIT,
@@ -24,7 +24,7 @@ typedef enum
     CHECK_IS_FULL
 } ACTION_TYPE;
 
-void SDB_action(uint8 choice);
+void SDB_action(uint32 choice);
 void SDB_APP(void);
 
 #endif
