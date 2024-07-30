@@ -37,7 +37,6 @@ Bool SDB_AddEntry(void){
         Student_DB[itemCount].Student_ID = 0;
         return False;
     }
-    IDs[itemCount] = Student_DB[itemCount].Student_ID;
 
     printf("Enter Student Year: ");
     scanf("%d",&Student_DB[itemCount].Student_year);
@@ -78,31 +77,7 @@ Bool SDB_IsIdExist (uint32 id,uint8* idx){
 void SDB_DeleteEntry (uint32 id){
     uint8 i = 0;
     if(SDB_IsIdExist(id,&i)){
-            Student_DB[i].Student_ID = Student_DB[itemCount - 1].Student_ID;
-            Student_DB[itemCount - 1].Student_ID = 0;
-            IDs[i] = IDs[itemCount - 1];
-            IDs[itemCount - 1] = 0;
-
-            Student_DB[i].Student_year = Student_DB[itemCount - 1].Student_year;
-            Student_DB[itemCount - 1].Student_year = 0;
-
-            Student_DB[i].Course1_ID = Student_DB[itemCount - 1].Course1_ID;
-            Student_DB[itemCount - 1].Course1_ID = 0;
-
-            Student_DB[i].Course1_grade = Student_DB[itemCount - 1].Course1_grade;
-            Student_DB[itemCount - 1].Course1_grade = 0;
-
-            Student_DB[i].Course2_ID = Student_DB[itemCount - 1].Course2_ID;
-            Student_DB[itemCount - 1].Course2_ID = 0;
-
-            Student_DB[i].Course2_grade = Student_DB[itemCount - 1].Course2_grade;
-            Student_DB[itemCount - 1].Course2_grade = 0;
-
-            Student_DB[i].Course3_ID = Student_DB[itemCount - 1].Course3_ID;
-            Student_DB[itemCount - 1].Course3_ID = 0;
-
-            Student_DB[i].Course3_grade = Student_DB[itemCount - 1].Course3_grade;
-            Student_DB[itemCount - 1].Course3_grade = 0;
+            Student_DB[i] = Student_DB[itemCount - 1];
             itemCount--;
             printf("Student Deleted successfuly\n");
         }
@@ -137,6 +112,6 @@ void SDB_GetList (uint8 * count, uint32 * list){
         *count = itemCount;
     }
     for(int i = 0 ; i < *count;i++){
-        list[i] =  IDs[i];
+        list[i] =  Student_DB[i].Student_ID;
     }
 }
